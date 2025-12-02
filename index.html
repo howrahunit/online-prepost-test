@@ -4,59 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Online Pre-Post Test System</title>
-    <!-- Favicon -->
     <link rel="icon" href="https://w7.pngwing.com/pngs/184/833/png-transparent-exam-test-checklist-online-learning-education-online-document-online-learning-icon.png" type="image/png">
     
     <style>
-        /* Ensure the iframe takes up exactly 100% of the screen with no scrollbars on the parent */
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden; /* Prevent double scrollbars */
-            background-color: #f3f4f6; /* Gray background while loading */
+            margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #f3f4f6;
         }
-        
         iframe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none; display: block; z-index: 9999;
         }
     </style>
 </head>
 <body>
 
     <!-- 
-      The src is left empty initially. 
-      The JavaScript below fills it in, preserving any ?page=Login parameters 
+      FIXED: Added 'allow' attributes to stop console violations.
+      FIXED: Added 'sandbox' flags (allow-top-navigation) to allow the script to redirect the page.
     -->
     <iframe id="app-frame"
             src=""
-            allow="geolocation; microphone; camera; fullscreen"
-            sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation">
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; camera; microphone; geolocation; fullscreen; payment; usb; midi"
+            sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation allow-top-navigation-by-user-activation allow-modals">
     </iframe>
 
     <script>
-        // 1. Your Google Web App URL
         const baseScriptUrl = "https://script.google.com/macros/s/AKfycbyjSTP65wxFl0Bc00iLkis7aukDaUoph6HWCBSRKNgUpidX1VFF-rEPm8WD5OMQdYTyFQ/exec";
-
-        // 2. Get the parameters from your GitHub URL (e.g., ?page=Login)
         const urlParams = window.location.search;
-
-        // 3. Combine them and set the iframe source
-        // This ensures if you share yourgithub.io/?page=Login, the iframe loads the Login page directly.
         const frame = document.getElementById('app-frame');
         frame.src = baseScriptUrl + urlParams;
 
-        // 4. (Optional) Title Updater - changes tab title based on URL
         if(urlParams.includes('Login')) document.title = "Login - Exam System";
         if(urlParams.includes('Admin')) document.title = "Admin - Exam System";
     </script>
